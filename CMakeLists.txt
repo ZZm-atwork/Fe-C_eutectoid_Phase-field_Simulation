@@ -1,0 +1,28 @@
+cmake_minimum_required(VERSION 3.16)
+project(pearlite_minimal VERSION 0.4.0 LANGUAGES C CXX)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+option(PEARL_ENABLE_MPI "Build distributed executable; requires MPI" OFF)
+option(PEARL_SANITIZE "Enable address and undefined-behavior sanitizers" OFF)
+find_package(HDF5 REQUIRED COMPONENTS C)
+
+# Same model identifier as the original v4 CMake build. Each combined source
+# embeds it directly, so compiling a cpp without CMake preserves the signature.
+file(WRITE "${CMAKE_BINARY_DIR}/SOURCE_DIGEST.txt"
+  "344eef3b2e1fdbd8a41d81378491b923f6d815d8ef917f8397729c5a57965580\n")
+add_library(pearl_build_settings INTERFACE)
+target_include_directories(pearl_build_settings INTERFACE ${HDF5_INCLUDE_DIRS})
+target_link_libraries(pearl_build_settings INTERFACE ${HDF5_LIBRARIES})
+target_compile_options(pearl_build_settings INTERFACE -Wall -Wextra -Wpedantic)
+if(PEARL_SANITIZE)
+  target_compile_options(pearl_build_settings INTERFACE -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer)
+  target_link_options(pearl_build_settings INTERFACE -fsanitize=address,undefined)
+endif()
+add_executable(pearl_serial pearl_serial.cpp)
+target_link_libraries(pearl_serial PRIVATE pearl_build_settings)
+if(PEARL_ENABLE_MPI)
+  find_package(MPI REQUIRED COMPONENTS CXX)
+  add_executable(pearl_parallel pearl_parallel.cpp)
+  target_link_libraries(pearl_parallel PRIVATE pearl_build_settings MPI::MPI_CXX)
+endif()

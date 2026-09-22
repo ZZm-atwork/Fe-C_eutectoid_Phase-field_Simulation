@@ -1,0 +1,77 @@
+# Te-only numerical calibration of the supplied new thermodynamics.
+# T = 999.68459774 K; end_time = 0.015 us. This is NOT the requested 10 K-undercooled target.
+# Coefficients are copied from the supplied Free_Energy_Pearlite.gnuplot without refitting.
+# Units: carbon mole fraction; free energy and chemical potential J/mol; length m; time s.
+# Phase IDs: alpha=0, theta=1, gamma=2. No anti-trapping flux is introduced.
+# All grid, D, Vm, interface, kinetic, smoothing, and timestep values match the frozen G137 baseline.
+# Only the physical end time is shortened for this calibration; output_dt remains 2.5e-8 s.
+# The same file can be inspected using the executable --thermo-only option.
+
+# ============================================================================
+# TEMPERATURE: REFERENCE-ONLY NUMERICAL CALIBRATION
+# ============================================================================
+thermo_mode = direct_at_temperature
+temperature = 999.68459774
+
+# ============================================================================
+# NEW SUPPLIED FREE-ENERGY PARABOLAS AND FROZEN DIFFUSIVITIES
+# ============================================================================
+A_alpha = 4724862.6373624019
+B_alpha = 22964.296428571855
+C_alpha = -42255.03701292308
+D_alpha = 2e-9
+A_theta = 100000000
+B_theta = -49968654.66102279
+C_theta = 6207741.2462954065
+D_theta = 2e-9
+A_gamma = 172591.65731409981
+B_gamma = 19450.725112218221
+C_gamma = -42053.816371518253
+D_gamma = 1e-9
+
+# ============================================================================
+# UNCHANGED GRID, INTERFACE ENERGY, MOLAR VOLUME, AND KINETICS
+# ============================================================================
+nx = 137
+ny = 250
+dx = 2.79e-9
+Vm = 1e-6
+epsilon = 14e-9
+sigma = 0.5
+triple = 10
+tau_at = 1.72402799784e8
+tau_ag = 1.72402799784e8
+tau_tg = 7.11828875478e9
+
+# ============================================================================
+# PHYSICAL TIME AND OUTPUT
+# ============================================================================
+dt = 1.5e-11
+dt_max = 1.5e-11
+dt_min = 1e-16
+end_time = 1.5e-8
+output_dt = 2.5e-8
+
+# ============================================================================
+# FILLING: UNCHANGED G137 SHARP/SMOOTH GEOMETRY
+# ============================================================================
+initialization = sharp_smooth
+seed_height = 58.59e-9
+theta_columns = 17
+
+# ============================================================================
+# FILLING: CARBON AT THE RECOMPUTED ALPHA/GAMMA TANGENT
+# ============================================================================
+# Computed by solving common-tangent equality for the supplied alpha/gamma ABC.
+# This initializes one common mu consistent with the new reference curves;
+# using the old 0.034433 would not place these new curves at their fitted tangent.
+# Under direct mode gamma_carbon sets mu = 2*A_gamma*gamma_carbon + B_gamma.
+gamma_carbon = 0.034458832049305582
+
+# ============================================================================
+# FILLING: UNCHANGED CAPILLARY-ONLY PREPROCESSING
+# ============================================================================
+smooth_steps = 100
+smooth_min_steps = 100
+smooth_energy_rtol = 1e-10
+smooth_max_phase_change = 0.02

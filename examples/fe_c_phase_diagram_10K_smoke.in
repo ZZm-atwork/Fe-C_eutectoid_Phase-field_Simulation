@@ -1,0 +1,172 @@
+# Pearl v0.4 G137 input: reference-temperature free energies plus phase-diagram slopes.
+# ABC below are the supplied coefficients at 999.68459774 K, not lower-temperature exports.
+# A 10 K undercooling gives an isothermal run at 989.68459774 K after the slope construction.
+# Syntax: key = value; # starts a comment. Ordinary duplicate and unknown keys are errors.
+# Phase IDs: 0=alpha/ferrite, 1=theta/cementite, 2=gamma/austenite.
+# INPUT PARAMETERS configure the model; FILLING sections initialize geometry and carbon.
+# See INPUT_PARAMETERS.md and NEW_FREE_ENERGY.md for the law, units and assumptions.
+# See FILLING_METHODS.md for supported MicroSim-style 2D geometry commands.
+# This short example stops at 0.015 microseconds; production owns a separate frozen input.
+# All prior grid, diffusivity, molar volume, kinetics, interface and timestep controls are retained.
+# Slopes mean dc_eq/dT [carbon mole fraction/K], not dq/dT, cooling rate or spatial gradient.
+# Curvatures A remain fixed; gamma ABC is held as the common affine energy-reference convention.
+# C(T) includes its full quadratic temperature increment, and supplied tangent residuals are retained.
+
+# ============================================================================
+# INPUT PARAMETERS: TEMPERATURE AND THERMODYNAMIC CONVENTION
+# ============================================================================
+# Interpret Aeq/Beq/Ceq as free-energy coefficients at the eutectoid reference temperature.
+thermo_mode = eutectoid_reference
+# Eutectoid reference temperature [K]; run T = T_eutectoid - undercooling.
+T_eutectoid = 999.68459774
+# Positive temperature reduction [K], evaluated once for the isothermal run.
+undercooling = 10
+# Build run-temperature B and C from phase-boundary slopes while retaining reference curvatures.
+temperature_law = phase_diagram_fixed_curvature
+# Declared maximum applicable undercooling [K]; larger values are rejected.
+max_undercooling = 10
+
+# ============================================================================
+# INPUT PARAMETERS: FERRITE (ALPHA) THERMODYNAMICS AND DIFFUSIVITY
+# ============================================================================
+# Ferrite (Alpha) reference free-energy coefficient of carbon squared in G=A*c^2+B*c+C [J/mol].
+Aeq_alpha = 4724862.6373624019
+# Ferrite (Alpha) reference free-energy coefficient of carbon in G=A*c^2+B*c+C [J/mol].
+Beq_alpha = 22964.296428571855
+# Ferrite (Alpha) reference free-energy constant term in G=A*c^2+B*c+C [J/mol].
+Ceq_alpha = -42255.03701292308
+# Ferrite (Alpha) carbon diffusivity [m^2/s]; unchanged by this temperature-law selection.
+D_alpha = 2e-9
+
+# ============================================================================
+# INPUT PARAMETERS: CEMENTITE (THETA) THERMODYNAMICS AND DIFFUSIVITY
+# ============================================================================
+# Cementite (Theta) reference free-energy coefficient of carbon squared in G=A*c^2+B*c+C [J/mol].
+Aeq_theta = 100000000
+# Cementite (Theta) reference free-energy coefficient of carbon in G=A*c^2+B*c+C [J/mol].
+Beq_theta = -49968654.66102279
+# Cementite (Theta) reference free-energy constant term in G=A*c^2+B*c+C [J/mol].
+Ceq_theta = 6207741.2462954065
+# Cementite (Theta) carbon diffusivity [m^2/s]; unchanged by this temperature-law selection.
+D_theta = 2e-9
+
+# ============================================================================
+# INPUT PARAMETERS: AUSTENITE (GAMMA) THERMODYNAMICS AND DIFFUSIVITY
+# ============================================================================
+# Austenite (Gamma) reference free-energy coefficient of carbon squared in G=A*c^2+B*c+C [J/mol].
+Aeq_gamma = 172591.65731409981
+# Austenite (Gamma) reference free-energy coefficient of carbon in G=A*c^2+B*c+C [J/mol].
+Beq_gamma = 19450.725112218221
+# Austenite (Gamma) reference free-energy constant term in G=A*c^2+B*c+C [J/mol].
+Ceq_gamma = -42053.816371518253
+# Austenite (Gamma) carbon diffusivity [m^2/s]; unchanged by this temperature-law selection.
+D_gamma = 1e-9
+
+# ============================================================================
+# INPUT PARAMETERS: REFERENCE CONTACTS OF THE SUPPLIED PARABOLAS
+# ============================================================================
+# Alpha/gamma contacts are recomputed from their actual ABC common tangent.
+# Their small offsets from phase-diagram invariant compositions are documented, not silently retuned.
+# Theta remains at c=0.25; its supplied ~8.234e-5 J/mol tangent-energy residual is preserved.
+# Ferrite contact on the reference alpha/gamma common tangent [carbon mole fraction].
+ceq_alpha = 0.00088690859310575857
+# Cementite reference stoichiometry [carbon mole fraction].
+ceq_theta = 0.25
+# Austenite contact on the reference alpha/gamma common tangent [carbon mole fraction].
+ceq_gamma = 0.034458832049305582
+
+# ============================================================================
+# INPUT PARAMETERS: PHASE-DIAGRAM COMPOSITION SLOPES
+# ============================================================================
+# Each slope is dc_eq/dT [carbon mole fraction/K], the reciprocal of MicroSim dT/dc when finite.
+# A zero theta slope represents fixed stoichiometry without an infinite input.
+# Fit: anchored least squares over unique supplied points in [Te, Te+10 K].
+# The stable gamma-containing branches above Te are extrapolated 10 K below Te.
+# The two gamma-side slopes are distinct; never use one shared gamma slope.
+# Ferrite-side composition slope along alpha/gamma coexistence [mole fraction/K].
+slope_alpha_on_alpha_gamma = -4.6282639461434345e-06
+# Austenite-side composition slope along alpha/gamma coexistence [mole fraction/K].
+slope_gamma_on_alpha_gamma = -0.00031198492411304955
+# Cementite-side composition slope along theta/gamma coexistence [mole fraction/K].
+slope_theta_on_theta_gamma = 0
+# Austenite-side composition slope along theta/gamma coexistence [mole fraction/K].
+slope_gamma_on_theta_gamma = 0.00010753713136114516
+
+# ============================================================================
+# INPUT PARAMETERS: COMPUTATIONAL GRID
+# ============================================================================
+# Number of physical cells along x; x is periodic. Total width = nx*dx.
+nx = 137
+# Number of physical cells along y; y has no-flux boundaries. Total height = ny*dy.
+ny = 250
+# Cell spacing along x [m]; this is resolution, not a phase-layer width.
+dx = 2.79e-9
+
+# ============================================================================
+# INPUT PARAMETERS: INTERFACE ENERGY AND PHASE KINETICS
+# ============================================================================
+# Common molar volume [m^3/mol]; converts the molar chemical driving force to energy density.
+Vm = 1e-6
+# Diffuse-interface model length [m]; not the measured 10%-90% interface width.
+epsilon = 14e-9
+# Equal interfacial energy for all three phase pairs [J/m^2].
+sigma = 0.5
+# Three-phase overlap energy coefficient [J/m^2]; penalizes overlap without forbidding a triple junction.
+triple = 10
+# Alpha-theta phase relaxation coefficient [J*s/m^4]; retained explicitly, not fitted automatically.
+tau_at = 1.72402799784e8
+# Alpha-gamma phase relaxation coefficient [J*s/m^4]; retained explicitly, not fitted automatically.
+tau_ag = 1.72402799784e8
+# Theta-gamma phase relaxation coefficient [J*s/m^4]; retained explicitly, not fitted automatically.
+tau_tg = 7.11828875478e9
+
+# ============================================================================
+# INPUT PARAMETERS: PHYSICAL TIME AND OUTPUT
+# ============================================================================
+# Initial trial time step [s]; adaptive acceptance and output-time clipping can change accepted dt.
+dt = 1.5e-11
+# Upper cap on subsequent proposed time steps [s]; default is dt.
+dt_max = 1.5e-11
+# Lower limit for trial time steps [s]; default is dt/1048576.
+dt_min = 1e-16
+# Absolute physical stopping time [s], including time already stored in a restart checkpoint.
+end_time = 1.5e-8
+# Field/checkpoint output interval in physical time [s]; the integrator clips steps to output times.
+output_dt = 2.5e-8
+
+# ============================================================================
+# FILLING: INITIAL PHASE GEOMETRY
+# ============================================================================
+# Native choices: lamella, sharp_smooth, flat, circle.
+# Opt-in initialization=microsim accepts ordered FILL recipes; this file keeps sharp_smooth.
+# See examples/fe_c_microsim_cube.in for an active G137 cube example and a commented method menu.
+# FILL coordinates/lengths use grid indices/cells, unlike seed_height and radius in meters.
+# For the current lamellar seed: theta occupies the first theta_columns;
+# alpha occupies the rest below seed_height; gamma occupies the region above.
+# Other shapes and their arguments are described in INPUT_PARAMETERS.md.
+# Initial phase geometry; sharp_smooth uses sharp labels then capillary-only preprocessing.
+initialization = sharp_smooth
+# Seed top height measured from y=0 [m]; cell centers below this height are product in sharp_smooth.
+seed_height = 58.59e-9
+# Theta width in x cells for the product seed; remaining seed columns are alpha.
+theta_columns = 17
+
+# ============================================================================
+# FILLING: INITIAL CARBON / CHEMICAL POTENTIAL
+# ============================================================================
+# Eutectoid gamma contact of the supplied reference curves [carbon mole fraction]; not wt%.
+# Uses the run-temperature gamma curve to set one uniform initial chemical potential.
+# This is a bulk initialization choice, distinct from the two shifted gamma coexistence contacts.
+gamma_carbon = 0.034458832049305582
+
+# ============================================================================
+# FILLING: SHARP-INTERFACE PREPROCESSING
+# ============================================================================
+# Maximum capillary-only preprocessing iterations; consumes no physical time and includes no diffusion.
+smooth_steps = 100
+# Minimum iterations before convergence-based stopping; default is smooth_steps.
+smooth_min_steps = 100
+# Relative interface-energy change threshold for preprocessing convergence [dimensionless].
+smooth_energy_rtol = 1e-10
+# Maximum phase-fraction trial change used to set preprocessing step size [dimensionless].
+smooth_max_phase_change = 0.02

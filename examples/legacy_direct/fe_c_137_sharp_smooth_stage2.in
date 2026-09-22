@@ -1,0 +1,127 @@
+# Pearl v0.4 input: annotated without changing any existing key or value.
+# Syntax: key = value; # starts a comment. Duplicate and unknown keys are errors.
+# Phase IDs: 0=alpha/ferrite, 1=theta/cementite, 2=gamma/austenite.
+# INPUT PARAMETERS configure the model; the separate FILLING sections initialize fields.
+# See ../INPUT_PARAMETERS.md (or ../../INPUT_PARAMETERS.md from legacy_direct).
+# See FILLING_METHODS.md in the v4_updated root for geometry methods and compatibility.
+# Supplied absolute end_time = 7.5 microseconds; comments do not authorize a new run.
+# Units follow the inherited molar-code convention; carbon is an atomic fraction.
+# The model uses no anti-trapping flux. Input clarity does not establish full MicroSim equivalence.
+
+# ============================================================================
+# INPUT PARAMETERS: TEMPERATURE AND THERMODYNAMIC CONVENTION
+# ============================================================================
+# Thermodynamic input convention: reference-temperature ABC, or ABC already at the run temperature.
+thermo_mode = direct_at_temperature
+# Run temperature [K] in direct mode; ABC already apply here, so no temperature correction is added.
+temperature = 989.76
+
+# ============================================================================
+# INPUT PARAMETERS: FERRITE (ALPHA) THERMODYNAMICS AND DIFFUSIVITY
+# ============================================================================
+# Ferrite run-temperature free-energy coefficient of c^2 in f(c,T)=A*c^2+B*c+C [J/mol].
+A_alpha = 6.331161979528086e5
+# Ferrite run-temperature free-energy coefficient of c in f(c,T)=A*c^2+B*c+C [J/mol].
+B_alpha = 3.374509335088470e3
+# Ferrite run-temperature free-energy constant term in f(c,T)=A*c^2+B*c+C [J/mol].
+C_alpha = -5.852000117829494e3
+# Ferrite carbon diffusivity [m^2/s]; used in K=sum(phi*D*dc/dmu).
+D_alpha = 2e-9
+
+# ============================================================================
+# INPUT PARAMETERS: CEMENTITE (THETA) THERMODYNAMICS AND DIFFUSIVITY
+# ============================================================================
+# Cementite run-temperature free-energy coefficient of c^2 in f(c,T)=A*c^2+B*c+C [J/mol].
+A_theta = 1.315789473684211e7
+# Cementite run-temperature free-energy coefficient of c in f(c,T)=A*c^2+B*c+C [J/mol].
+B_theta = -6.574594863157894e6
+# Cementite run-temperature free-energy constant term in f(c,T)=A*c^2+B*c+C [J/mol].
+C_theta = 8.165231004262522e5
+# Cementite carbon diffusivity [m^2/s]; used in K=sum(phi*D*dc/dmu).
+D_theta = 2e-9
+
+# ============================================================================
+# INPUT PARAMETERS: AUSTENITE (GAMMA) THERMODYNAMICS AND DIFFUSIVITY
+# ============================================================================
+# Austenite run-temperature free-energy coefficient of c^2 in f(c,T)=A*c^2+B*c+C [J/mol].
+A_gamma = 2.462118547531691e4
+# Austenite run-temperature free-energy coefficient of c in f(c,T)=A*c^2+B*c+C [J/mol].
+B_gamma = 2.708815789259557e3
+# Austenite run-temperature free-energy constant term in f(c,T)=A*c^2+B*c+C [J/mol].
+C_gamma = -5.817887580401304e3
+# Austenite carbon diffusivity [m^2/s]; used in K=sum(phi*D*dc/dmu).
+D_gamma = 1e-9
+
+# ============================================================================
+# INPUT PARAMETERS: COMPUTATIONAL GRID
+# ============================================================================
+# Number of physical cells along x; x is periodic. Total width = nx*dx.
+nx = 137
+# Number of physical cells along y; y has no-flux boundaries. Total height = ny*dy.
+ny = 250
+# Cell spacing along x [m]; this is resolution, not a phase-layer width.
+dx = 2.79e-9
+
+# ============================================================================
+# INPUT PARAMETERS: INTERFACE ENERGY AND PHASE KINETICS
+# ============================================================================
+# Common molar volume [m^3/mol]; converts the molar chemical driving force to energy density.
+Vm = 1e-6
+# Diffuse-interface model length [m]; not the measured 10%-90% interface width.
+epsilon = 14e-9
+# Equal interfacial energy for all three phase pairs [J/m^2].
+sigma = 0.5
+# Three-phase overlap energy coefficient [J/m^2]; penalizes overlap without forbidding a triple junction.
+triple = 10
+# Alpha-theta phase relaxation coefficient [J*s/m^4]; retained explicitly, not fitted automatically.
+tau_at = 1.72402799784e8
+# Alpha-gamma phase relaxation coefficient [J*s/m^4]; retained explicitly, not fitted automatically.
+tau_ag = 1.72402799784e8
+# Theta-gamma phase relaxation coefficient [J*s/m^4]; retained explicitly, not fitted automatically.
+tau_tg = 7.11828875478e9
+
+# ============================================================================
+# INPUT PARAMETERS: PHYSICAL TIME AND OUTPUT
+# ============================================================================
+# Initial trial time step [s]; adaptive acceptance and output-time clipping can change accepted dt.
+dt = 1.5e-11
+# Upper cap on subsequent proposed time steps [s]; default is dt.
+dt_max = 1.5e-11
+# Lower limit for trial time steps [s]; default is dt/1048576.
+dt_min = 1e-16
+# Absolute physical stopping time [s], including time already stored in a restart checkpoint.
+end_time = 7.5e-6
+# Field/checkpoint output interval in physical time [s]; the integrator clips steps to output times.
+output_dt = 7.5e-8
+
+# ============================================================================
+# FILLING: INITIAL PHASE GEOMETRY
+# ============================================================================
+# Native choices: lamella, sharp_smooth, flat, circle.
+# For the current lamellar seed: theta occupies the first theta_columns;
+# alpha occupies the rest below seed_height; gamma occupies the region above.
+# Other shapes and their arguments are described in INPUT_PARAMETERS.md.
+# Initial phase geometry; sharp_smooth uses sharp labels then capillary-only preprocessing.
+initialization = sharp_smooth
+# Seed top height measured from y=0 [m]; cell centers below this height are product in sharp_smooth.
+seed_height = 58.59e-9
+# Theta width in x cells for the product seed; remaining seed columns are alpha.
+theta_columns = 17
+
+# ============================================================================
+# FILLING: INITIAL CARBON / CHEMICAL POTENTIAL
+# ============================================================================
+# Carbon atomic fraction assigned to pure gamma to set one uniform initial chemical potential; not wt%.
+gamma_carbon = 0.034433
+
+# ============================================================================
+# FILLING: SHARP-INTERFACE PREPROCESSING
+# ============================================================================
+# Maximum capillary-only preprocessing iterations; consumes no physical time and includes no diffusion.
+smooth_steps = 100
+# Minimum iterations before convergence-based stopping; default is smooth_steps.
+smooth_min_steps = 100
+# Relative interface-energy change threshold for preprocessing convergence [dimensionless].
+smooth_energy_rtol = 1e-10
+# Maximum phase-fraction trial change used to set preprocessing step size [dimensionless].
+smooth_max_phase_change = 0.02

@@ -1,0 +1,320 @@
+{
+  "status": "COMPLETE_MECHANICAL_REPACKAGING",
+  "completed_at_utc": "2026-09-14T18:14:16.095855+00:00",
+  "scope": "Two self-contained application cpp files, serial and parallel; no physics, parameter or function changes.",
+  "assembly": {
+    "source_directory": "<original-workspace>/Pearl_v0_4_reference_review",
+    "output_directory": "<original-workspace>/v4_updated",
+    "original_package_manifest": "<original-workspace>/research/pearl_v04_reference_smoke_20260911/PACKAGE_MANIFEST.json",
+    "original_package_files_verified": 55,
+    "source_hashes": {
+      "include/io.hpp": "bc2b2b7e8c5a79d911649d51617df58b4bfe4cbfd38abdef5becc1e844683f7e",
+      "include/physics.hpp": "80bbd6425dacfc2ee6a0a51385f12b58ce300cd7ed5d0a4df4b413334925035e",
+      "include/solver.hpp": "5fe9c0bca833a2dbc380c6a9f0970c06cf7f82abbf3f93371c6151cf77a1ce2c",
+      "main.cpp": "2a9a89a45f1933b023866804c525cb96f04b104cf49563ffc8b76ca93f9dd5af"
+    },
+    "original_model_digest": "344eef3b2e1fdbd8a41d81378491b923f6d815d8ef917f8397729c5a57965580",
+    "concatenation_order": [
+      "include/physics.hpp",
+      "include/solver.hpp",
+      "include/io.hpp",
+      "main.cpp"
+    ],
+    "only_removed_source_lines": [
+      {
+        "file": "include/physics.hpp",
+        "line": 1,
+        "text": "#pragma once"
+      },
+      {
+        "file": "include/solver.hpp",
+        "line": 1,
+        "text": "#pragma once"
+      },
+      {
+        "file": "include/solver.hpp",
+        "line": 2,
+        "text": "#include \"physics.hpp\""
+      },
+      {
+        "file": "include/io.hpp",
+        "line": 1,
+        "text": "#pragma once"
+      },
+      {
+        "file": "include/io.hpp",
+        "line": 2,
+        "text": "#include \"solver.hpp\""
+      },
+      {
+        "file": "main.cpp",
+        "line": 2,
+        "text": "#include \"io.hpp\""
+      }
+    ],
+    "shared_body_sha256": "d7a74cf8c1dbf08efd14f203ee99beefc36dfaf031a2d553c9e6b5245fae161a",
+    "combined_file_sha256": {
+      "pearl_serial.cpp": "9ddc4f5513afefa2ac227e143ff85320f6ab7b022627ebee755ac73c7dea8838",
+      "pearl_parallel.cpp": "987e648913b5799ded6b04197fdaad391c9ed7361575e6c797698d46c55f0575"
+    },
+    "unchanged_input_hashes": {
+      "examples/fe_c_eutectoid.in": "86123aff1a534f53b4a73b2be4cbf631970aac1609746cdc2216fc6f40f5308a",
+      "examples/fe_c_smoke.in": "e17f1a2fc9c27904263782a57c102fc3798ac45bff54018a7d1272da576bb08f",
+      "examples/legacy_direct/fe_c_137.in": "f86174fcd9d9a138e847f970cfd8f926a6cf2e65df6f0ebd8f6cca61b433f542",
+      "examples/legacy_direct/fe_c_137_sharp_smooth_stage1.in": "a452595cfa0acd9dcc0e04a249563a374efb653acd12b6a7e79aa9198780d465",
+      "examples/legacy_direct/fe_c_137_sharp_smooth_stage2.in": "2b455236c731f0d3e600ba2f0ffb5fe952dec10bc3bf7606bca54d8efd8bd862",
+      "examples/legacy_direct/fe_c_137_sharp_smooth_stage3.in": "fb90c2b46e6167df2b7b7fc70bbcfad5ef82fe0e4c0fb474ba9fd36c2ef3a817",
+      "examples/legacy_direct/fe_c_137_sharp_smooth_stage4.in": "a5dff6af544114c4ec9e02461e9618d20fa639301d29ab1ae6b3e8913af8c6bc",
+      "examples/legacy_direct/fe_c_411.in": "c409d81523285e78c3e1c2c9f6e8ebf50bd032bf9fc55b0835521fa8b3d3ffe7",
+      "examples/symmetric_eutectic.in": "3daa86dd4139a6a477ad3160bd7416878f92ff9810c5e0913ac18ff9a8ea3b6b"
+    },
+    "new_runtime_functions": 0,
+    "removed_runtime_functions": 0,
+    "numerical_parameter_changes": 0,
+    "physics_changes": 0,
+    "simulation_runs": 0,
+    "checkpoint_signature_logic_changed": false,
+    "verification_scope": "Mechanical source packaging; compiler checks recorded separately."
+  },
+  "independent_review": {
+    "status": "PASS_STATIC_MECHANICAL_EQUIVALENCE",
+    "reviewed_at_utc": "2026-09-14T18:08:55.476593+00:00",
+    "review_scope": "Independent direct byte comparisons, without importing or executing assembly helper. No solver source edits, compilation, CTests, simulation, numerical reruns or remote operations performed by reviewer.",
+    "source_directory": "<original-workspace>/Pearl_v0_4_reference_review",
+    "output_directory": "<original-workspace>/v4_updated",
+    "source_manifest_entries_verified": 54,
+    "original_model_source_digest": "344eef3b2e1fdbd8a41d81378491b923f6d815d8ef917f8397729c5a57965580",
+    "source_files": [
+      {
+        "path": "<original-workspace>/Pearl_v0_4_reference_review/include/physics.hpp",
+        "sha256": "80bbd6425dacfc2ee6a0a51385f12b58ce300cd7ed5d0a4df4b413334925035e",
+        "original_bytes": 21199,
+        "preserved_body_bytes": 21186
+      },
+      {
+        "path": "<original-workspace>/Pearl_v0_4_reference_review/include/solver.hpp",
+        "sha256": "5fe9c0bca833a2dbc380c6a9f0970c06cf7f82abbf3f93371c6151cf77a1ce2c",
+        "original_bytes": 27083,
+        "preserved_body_bytes": 27047
+      },
+      {
+        "path": "<original-workspace>/Pearl_v0_4_reference_review/include/io.hpp",
+        "sha256": "bc2b2b7e8c5a79d911649d51617df58b4bfe4cbfd38abdef5becc1e844683f7e",
+        "original_bytes": 32167,
+        "preserved_body_bytes": 32132
+      },
+      {
+        "path": "<original-workspace>/Pearl_v0_4_reference_review/main.cpp",
+        "sha256": "2a9a89a45f1933b023866804c525cb96f04b104cf49563ffc8b76ca93f9dd5af",
+        "original_bytes": 9061,
+        "preserved_body_bytes": 9043
+      }
+    ],
+    "exact_removed_directives": [
+      {
+        "source": "include/physics.hpp",
+        "line": 1,
+        "directive": "#pragma once"
+      },
+      {
+        "source": "include/solver.hpp",
+        "line": 1,
+        "directive": "#pragma once"
+      },
+      {
+        "source": "include/solver.hpp",
+        "line": 2,
+        "directive": "#include \"physics.hpp\""
+      },
+      {
+        "source": "include/io.hpp",
+        "line": 1,
+        "directive": "#pragma once"
+      },
+      {
+        "source": "include/io.hpp",
+        "line": 2,
+        "directive": "#include \"solver.hpp\""
+      },
+      {
+        "source": "main.cpp",
+        "line": 2,
+        "directive": "#include \"io.hpp\""
+      }
+    ],
+    "variants": [
+      {
+        "path": "<original-workspace>/v4_updated/pearl_serial.cpp",
+        "sha256": "9ddc4f5513afefa2ac227e143ff85320f6ab7b022627ebee755ac73c7dea8838",
+        "all_original_bodies_preserved": true,
+        "only_additions_outside_bodies": "License/provenance comments, original source digest default, serial or MPI build-selection directives",
+        "mode_check": "reject externally defined PEARL_MPI"
+      },
+      {
+        "path": "<original-workspace>/v4_updated/pearl_parallel.cpp",
+        "sha256": "987e648913b5799ded6b04197fdaad391c9ed7361575e6c797698d46c55f0575",
+        "all_original_bodies_preserved": true,
+        "only_additions_outside_bodies": "License/provenance comments, original source digest default, serial or MPI build-selection directives",
+        "mode_check": "define PEARL_MPI=1 when not defined"
+      }
+    ],
+    "serial_parallel_original_bodies_byte_identical": true,
+    "runtime_functions_added_or_removed": false,
+    "parameters_changed": false,
+    "numerical_logic_changed": false,
+    "input_files_verified": [
+      {
+        "relative_path": "examples/fe_c_eutectoid.in",
+        "sha256": "86123aff1a534f53b4a73b2be4cbf631970aac1609746cdc2216fc6f40f5308a",
+        "byte_identical": true
+      },
+      {
+        "relative_path": "examples/fe_c_smoke.in",
+        "sha256": "e17f1a2fc9c27904263782a57c102fc3798ac45bff54018a7d1272da576bb08f",
+        "byte_identical": true
+      },
+      {
+        "relative_path": "examples/legacy_direct/fe_c_137.in",
+        "sha256": "f86174fcd9d9a138e847f970cfd8f926a6cf2e65df6f0ebd8f6cca61b433f542",
+        "byte_identical": true
+      },
+      {
+        "relative_path": "examples/legacy_direct/fe_c_137_sharp_smooth_stage1.in",
+        "sha256": "a452595cfa0acd9dcc0e04a249563a374efb653acd12b6a7e79aa9198780d465",
+        "byte_identical": true
+      },
+      {
+        "relative_path": "examples/legacy_direct/fe_c_137_sharp_smooth_stage2.in",
+        "sha256": "2b455236c731f0d3e600ba2f0ffb5fe952dec10bc3bf7606bca54d8efd8bd862",
+        "byte_identical": true
+      },
+      {
+        "relative_path": "examples/legacy_direct/fe_c_137_sharp_smooth_stage3.in",
+        "sha256": "fb90c2b46e6167df2b7b7fc70bbcfad5ef82fe0e4c0fb474ba9fd36c2ef3a817",
+        "byte_identical": true
+      },
+      {
+        "relative_path": "examples/legacy_direct/fe_c_137_sharp_smooth_stage4.in",
+        "sha256": "a5dff6af544114c4ec9e02461e9618d20fa639301d29ab1ae6b3e8913af8c6bc",
+        "byte_identical": true
+      },
+      {
+        "relative_path": "examples/legacy_direct/fe_c_411.in",
+        "sha256": "c409d81523285e78c3e1c2c9f6e8ebf50bd032bf9fc55b0835521fa8b3d3ffe7",
+        "byte_identical": true
+      },
+      {
+        "relative_path": "examples/symmetric_eutectic.in",
+        "sha256": "3daa86dd4139a6a477ad3160bd7416878f92ff9810c5e0913ac18ff9a8ea3b6b",
+        "byte_identical": true
+      }
+    ],
+    "license_byte_identical": true,
+    "source_macro_hazards": "No original __FILE__, __LINE__, __COUNTER__, __DATE__, __TIME__ or #line use found. Original #ifdef PEARL_MPI semantics retained.",
+    "checkpoint_signature": "Both default to original model digest. The original ability to supply PEARL_SOURCE_DIGEST at compile time is retained; documented normal builds should use default.",
+    "limits": "This proves mechanical source preservation and build-mode selection, not new numerical accuracy or cross-toolchain binary equivalence. Parent performs build/preprocessor verification.",
+    "documentation_build_review": {
+      "reviewed_at_utc": "2026-09-14T18:13:07.378654+00:00",
+      "status": "PASS",
+      "readme_sha256_at_review": "771296a7c0f527107f22a72bdbda071e2fac7edc545fdab019389cc009d01fb0",
+      "cmake_sha256_at_review": "15dada3d019b0e5fea50e57ddca4a5493af464c1eec8c2aed2b9084e59d4667a",
+      "reviewed_against": [
+        "Pearl_v0_4_reference_review/include/io.hpp read_config, initialize, read_checkpoint",
+        "Pearl_v0_4_reference_review/main.cpp command-line handling and output flow",
+        "Pearl_v0_4_reference_review/CMakeLists.txt compiler settings and libraries"
+      ],
+      "literal_parser_keys_covered": 57,
+      "literal_parser_keys_missing_from_readme": [],
+      "build_logic": "C++17, extension policy, HDF5 C dependency, MPI CXX dependency for parallel, warning flags and sanitizer flags match original; executable names and source paths intentionally changed. Digest moved from original CMake definition to identical cpp default. No new numerical build flags. CTests intentionally not copied or registered.",
+      "input_defaults": "Documented accepted keys, thermo modes, phase ordering, initialization options and numerical defaults agree with original parser; mean_carbon shift-gamma parse-time default is explicitly documented.",
+      "compatibility": "Original v4 model digest and exact checkpoint signature check retained. No new runtime/restart evidence asserted. README accurately distinguishes local build/preprocessor results from Sol and numerical validation; compiler outcomes supplied by parent, not independently executed in this review.",
+      "findings": [
+        {
+          "severity": "documentation_clarification",
+          "topic": "shift_gamma_carbon default with mean_carbon",
+          "finding": "The fallback is evaluated during input parsing before mean-carbon initialization solves mu. Config.initial_mu remains its default 0 in mean mode; gamma composition at that zero is used. Wording configured initial mu can be mistaken for the later solved mean-carbon mu.",
+          "requested_change": "State explicitly that mean_carbon mode uses mu=0 at parse time for this fallback, or require user to supply shift_gamma_carbon in documentation without changing parser.",
+          "resolution": "Resolved in reviewed README; original source/parser unchanged."
+        },
+        {
+          "severity": "documentation_clarification",
+          "topic": "initial phase snapshot outputs",
+          "finding": "init_sharp/init_smoothed HDF5/XMF are written only on fresh sharp_smooth initialization; lamella/flat/circle and restarts do not produce these two snapshots.",
+          "requested_change": "Qualify the listed initial snapshot outputs with this condition.",
+          "resolution": "Resolved in reviewed README; original source/parser unchanged."
+        }
+      ],
+      "model_changes_detected": false,
+      "numerical_execution_performed": false
+    }
+  },
+  "compiler_checks": {
+    "serial": {
+      "status": "PASS",
+      "mode": "serial",
+      "compiler": "/usr/bin/clang++",
+      "source_sha256": "9ddc4f5513afefa2ac227e143ff85320f6ab7b022627ebee755ac73c7dea8838",
+      "preprocessor_equivalence": "Exact byte equality after removing blank lines only; all nonblank characters retained",
+      "normalized_preprocessed_sha256": "a21ba5b6944a1a0b5a6ec95f4aecdb6f5f5e7a969baa8af3fb997de8517ffbfc",
+      "normalized_preprocessed_bytes": 3573368,
+      "compile_link_exit_code": 0,
+      "executable_path": "<original-workspace>/research/pearl_v04_amalgamation_20260914/compiler_serial/pearl_serial",
+      "executable_sha256": "3d8c01f8a8a607a6a02312e0f338bbf52a067cca20c6f3e8102db3bbf879866e",
+      "commands_file": "<original-workspace>/research/pearl_v04_amalgamation_20260914/compiler_serial/commands.json",
+      "solver_executions": 0,
+      "numerical_tests": 0,
+      "scope": "Local macOS compiler/HDF5; not Sol/HPC-X validation"
+    },
+    "parallel": {
+      "status": "PASS",
+      "mode": "parallel",
+      "compiler": "/opt/homebrew/bin/mpicxx",
+      "source_sha256": "987e648913b5799ded6b04197fdaad391c9ed7361575e6c797698d46c55f0575",
+      "preprocessor_equivalence": "Exact byte equality after removing blank lines only; all nonblank characters retained",
+      "normalized_preprocessed_sha256": "77e1608039a26cd8527ac12abfc6c2650bd575082299fe11cb8666a0c7a264cf",
+      "normalized_preprocessed_bytes": 4244999,
+      "compile_link_exit_code": 0,
+      "executable_path": "<original-workspace>/research/pearl_v04_amalgamation_20260914/compiler_parallel/pearl_parallel",
+      "executable_sha256": "2ff8a5a764b4e3258740f3a6a1208b7e1d31d17f5598be5aeb5b5321e08c60cb",
+      "commands_file": "<original-workspace>/research/pearl_v04_amalgamation_20260914/compiler_parallel/commands.json",
+      "solver_executions": 0,
+      "numerical_tests": 0,
+      "scope": "Local macOS compiler/HDF5/MPICH; not Sol/HPC-X validation"
+    }
+  },
+  "cmake_configure_performed": false,
+  "cmake_validation": "Read-only comparison with original settings; direct compiler builds checked separately.",
+  "source_baseline": "All 55 local original files match the previously verified Sol release/package manifest before and after packaging.",
+  "Sol_precheck": {
+    "status": "WAITING_FOR_VPN",
+    "attempts": [
+      {
+        "kind": "sandbox check",
+        "result": "DNS resolution unavailable"
+      },
+      {
+        "kind": "network-enabled noninteractive check",
+        "result": "connection timed out on port 22"
+      }
+    ],
+    "fresh_remote_hash_comparison_or_build": false,
+    "effect": "Local mechanical packaging and compiler checks completed; no remote job state inferred or changed."
+  },
+  "simulation_runs": 0,
+  "numerical_tests": 0,
+  "new_Slurm_allocations": 0,
+  "new_automation": false,
+  "original_sources_or_inputs_modified": false,
+  "new_package_source_files": [
+    "pearl_serial.cpp",
+    "pearl_parallel.cpp"
+  ],
+  "extra_package_files": "CMake build file, input/use guide, nine byte-identical inputs, original license, verification record and SHA256 manifest",
+  "evidence_directory": "<original-workspace>/research/pearl_v04_amalgamation_20260914",
+  "reproducibility_scripts_sha256": {
+    "assemble.py": "0ffe63b27a3f60701d8f8495d80e2e6af7fcfee6bdb57fe1fb000bd447a9c281",
+    "verify_packaging.py": "075ffc22b6cc05e7aa4d1b8a96b2c04f6d1fbbd36c6296be6bd5d48f22a452f3"
+  },
+  "scientific_campaigns_reopened": false,
+  "scientific_budget_changed": false
+}

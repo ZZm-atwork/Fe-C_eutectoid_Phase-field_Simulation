@@ -1,0 +1,56 @@
+{
+  "status": "PRODUCTION_RUNNING",
+  "updated_utc": "2026-09-21T05:18:07.699593+00:00",
+  "scope": "Supplied reference-temperature ABC plus fixed-curvature phase-diagram temperature law; documented 2D combined serial/MPI files.",
+  "sources": {
+    "pearl_serial.cpp": "7edeae3b9ea0ae706da545cf54fc33916e1a976747ac9416deffdd73b43fa5dc",
+    "pearl_parallel.cpp": "f23f5e0592e3e0898f202ec1d06d4356d6c0a769f0ce0bd749ce0d0dd34e852d"
+  },
+  "inherited_model_digest": "344eef3b2e1fdbd8a41d81378491b923f6d815d8ef917f8397729c5a57965580",
+  "digest_is_current_file_hash": false,
+  "thermodynamic_signature_marker": "phase-diagram-fixed-curvature-v1;",
+  "reference_temperature_K": 999.68459774,
+  "undercooling_K": 10,
+  "run_temperature_K": 989.68459774,
+  "input_sha256": "cda47396a8352628aabddd0ba2f4ee90dc391f7809baf17d46e010a5d91431c6",
+  "default_input_horizon_s": 1.5e-06,
+  "smoke_horizon_s": 1.5e-08,
+  "mathematical_checks": {
+    "status": "PASS",
+    "assertions": 171,
+    "preserved_legacy_signatures": 12
+  },
+  "legacy_short_regression": "BITWISE_IDENTICAL_0p015us",
+  "local_new_thermo": {
+    "status": "FAIL_ORIGINAL_MU_COMPARISON",
+    "serial_vs_MPI1": "BITWISE_IDENTICAL",
+    "MPI4_mu_error": 0.06608049488568213,
+    "mu_absolute_limit": 1e-05,
+    "accepted_steps": 5455,
+    "rejected_steps": 752,
+    "CG_total": 20267,
+    "state_mass_closure": "PASS",
+    "MPI4_fresh_vs_restarted": "BITWISE_IDENTICAL"
+  },
+  "Sol_job_id": "63725053",
+  "Sol_status": "PRODUCTION_RUNNING",
+  "Sol_result": {
+    "job_id": "63725053",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed_s": 205,
+    "actual_resources": "1node16tasks16CPUs1CPU/task4x4HCOLLoff",
+    "maximum_mu_error_fresh": 9.094947017729282e-11,
+    "maximum_mu_error_restart": 1.1641532182693481e-10,
+    "benchmark_physical_time_s": 1.5e-07,
+    "benchmark_wall_s": 43.52188640413806,
+    "core_hours": 0.9111111111111111
+  },
+  "requested_production_wall_hours": 72,
+  "production_status": "RUNNING",
+  "production_job_id": "63725141",
+  "old_frozen_sources_outputs_preserved": true,
+  "recurring_automation_created": false,
+  "validation_evidence": "../research/pearl_v04_phase_diagram_20260921/REPORT.md",
+  "previous_packaging_snapshot": "../research/pearl_v04_phase_diagram_20260921/before_v4_updated/PACKAGING_VERIFICATION.json"
+}

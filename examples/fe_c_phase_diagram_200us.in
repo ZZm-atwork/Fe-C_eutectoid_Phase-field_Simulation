@@ -1,0 +1,74 @@
+# G137 long run: supplied reference ABC plus phase-diagram slopes.
+# Reference coefficients are at Te = 999.68459774 K, not at the run T.
+# The isothermal run has 10 K undercooling: T = 989.68459774 K.
+# Fixed-curvature phase-diagram construction: see ../audit/REPORT.md.
+# dc/dT slopes use carbon mole fraction/K; no old dq/dT values are reused.
+# All other model/geometry/numerics match the prior Te-only calibration.
+
+# TEMPERATURE AND REFERENCE THERMODYNAMICS
+thermo_mode = eutectoid_reference
+temperature_law = phase_diagram_fixed_curvature
+T_eutectoid = 999.68459774
+undercooling = 10
+max_undercooling = 10
+
+Aeq_alpha = 4724862.6373624019
+Beq_alpha = 22964.296428571855
+Ceq_alpha = -42255.03701292308
+D_alpha = 2e-9
+Aeq_theta = 100000000
+Beq_theta = -49968654.66102279
+Ceq_theta = 6207741.2462954065
+D_theta = 2e-9
+Aeq_gamma = 172591.65731409981
+Beq_gamma = 19450.725112218221
+Ceq_gamma = -42053.816371518253
+D_gamma = 1e-9
+
+# REFERENCE CONTACTS OF THE SUPPLIED PARABOLAS
+# Small differences from the exported diagram invariant are retained.
+# The supplied theta common-tangent residual is not silently repaired.
+ceq_alpha = 0.00088690859310575857
+ceq_theta = 0.25
+ceq_gamma = 0.034458832049305582
+
+# PHASE-DIAGRAM BOUNDARY SLOPES dc_eq/dT (mole fraction/K)
+# Anchored least-squares fit to unique points in [Te, Te+10 K].
+# Stable gamma branches above Te are extrapolated 10 K below Te.
+slope_alpha_on_alpha_gamma = -4.6282639461434345e-06
+slope_gamma_on_alpha_gamma = -0.00031198492411304955
+slope_theta_on_theta_gamma = 0
+slope_gamma_on_theta_gamma = 0.00010753713136114516
+
+# UNCHANGED GRID, INTERFACE ENERGY, MOLAR VOLUME, AND KINETICS
+nx = 137
+ny = 250
+dx = 2.79e-9
+Vm = 1e-6
+epsilon = 14e-9
+sigma = 0.5
+triple = 10
+tau_at = 1.72402799784e8
+tau_ag = 1.72402799784e8
+tau_tg = 7.11828875478e9
+
+# PHYSICAL TARGET 200 MICROSECONDS; EXTERNAL SLURM WALL LIMIT 72 HOURS
+dt = 1.5e-11
+dt_max = 1.5e-11
+dt_min = 1e-16
+end_time = 2e-4
+output_dt = 2.5e-8
+
+# UNCHANGED G137 SHARP/SMOOTH FILLING
+initialization = sharp_smooth
+seed_height = 58.59e-9
+theta_columns = 17
+
+# EUTECTOID BULK GAMMA CARBON: REFERENCE FIT CONTACT
+gamma_carbon = 0.034458832049305582
+
+# UNCHANGED CAPILLARY-ONLY PREPROCESSING
+smooth_steps = 100
+smooth_min_steps = 100
+smooth_energy_rtol = 1e-10
+smooth_max_phase_change = 0.02
